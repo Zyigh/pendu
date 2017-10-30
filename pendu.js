@@ -99,7 +99,6 @@ var Pendu = function () {
 
   var initialize_pendu = function () {
     that.word = words[that.getRandomArbitrary(0, words.length)];
-    console.log(that.word);
     display_chances();
     enable_input();
     //enable_counter();
@@ -113,6 +112,3 @@ var Pendu = function () {
   }
 };
 window.pendu = new Pendu();
-
-
-// https://youtu.be/oTyNVLlFiys?t=10s
