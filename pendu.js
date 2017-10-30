@@ -29,8 +29,9 @@ var Pendu = function () {
   };
 
   var place_the_letter = function (letter, places) {
-    places.forEach(function (t) {
+    places.forEach(function (t, p) {
         that.letters[t].innerHTML = letter;
+
     });
   };
 
