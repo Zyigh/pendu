@@ -14,16 +14,24 @@ var Pendu = function () {
     };
 
   var check_the_word = function (letter) {
+    var places = [];
+    for (var i = 0; i < words.length; i++) {
+        if (that.word[i] === letter) {
+            places.push(letter);
+        }
+    }
 
-    return letter.indexOf(that.word);
+    return places;
   };
 
   var remove_point = function () {
     display_chances();
   };
 
-  var place_the_letter = function (letter, place) {
-    that.letters[place].innerHTML = letter;
+  var place_the_letter = function (letter, places) {
+    places.forEach(function (t) {
+        that.letters[t].innerHTML = letter;
+    });
   };
 
   var check_the_input = function() {
@@ -32,7 +40,7 @@ var Pendu = function () {
 
   var validate_letter = function (text) {
     if (text.length === 1) {
-        if (guesses.indexOf(that.word) === -1) {
+        if (guesses.indexOf(text) === -1) {
             guesses.push(text);
 
             return true
@@ -42,7 +50,7 @@ var Pendu = function () {
         }
     }
 
-        return false;
+    return false;
   };
 
   var trigger = function(keydown) {
@@ -50,9 +58,9 @@ var Pendu = function () {
         var letter = check_the_input();
         var is_good = validate_letter(letter)
         if (true === is_good) {
-            var place = check_the_word(letter);
-            if (place > -1) {
-                place_the_letter(letter, place);
+            var places = check_the_word(letter);
+            if (places.length > 0) {
+                place_the_letter(letter, places);
             } else {
                 alert('This letter is not in my word :/');
                 remove_point();
@@ -106,3 +114,4 @@ var Pendu = function () {
 window.pendu = new Pendu();
 
 
+// https://youtu.be/oTyNVLlFiys?t=10s
