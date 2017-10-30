@@ -9,30 +9,20 @@ var Pendu = function () {
   var guesses = [];
   this.word;
 
-    this.getRandomArbitrary = function(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
-    };
+  this.getRandomArbitrary = function(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  };
 
-  var check_the_word = function (letter) {
-    var places = [];
-    for (var i = 0; i < words.length; i++) {
-        if (that.word[i] === letter) {
-            places.push(letter);
-        }
+  var place_the_letter = function (letter) {
+    var validated = false;
+    for (var i = 0; i < that.word.length; i++) {
+      if (that.word[i] === letter) {
+        that.letters[i].innerHTML = letter;
+        validated = true;
+      }
     }
 
-    return places;
-  };
-
-  var remove_point = function () {
-    display_chances();
-  };
-
-  var place_the_letter = function (letter, places) {
-    places.forEach(function (t, p) {
-        that.letters[t].innerHTML = letter;
-
-    });
+    return validated;
   };
 
   var check_the_input = function() {
@@ -54,17 +44,33 @@ var Pendu = function () {
     return false;
   };
 
+  var is_finished = function () {
+    for (var i = 0; i < that.letters.length; i++) {
+        if (that.letters[i].innerHTML === '_') {
+
+            return;
+        }
+    }
+    alert('BRAVOOOOO !!!!');
+    window.location = 'https://youtu.be/oTyNVLlFiys?t=10s';
+  };
+
+  var reset_value = function() {
+    input.value = '';
+  };
+
   var trigger = function(keydown) {
     if (keydown.keyCode === 13) {
         var letter = check_the_input();
         var is_good = validate_letter(letter)
         if (true === is_good) {
-            var places = check_the_word(letter);
-            if (places.length > 0) {
-                place_the_letter(letter, places);
+            if (place_the_letter(letter)) {
+                reset_value();
+                is_finished();
             } else {
                 alert('This letter is not in my word :/');
-                remove_point();
+                reset_value();
+                display_chances();
             }
         } else if ('already dood' === is_good) {
             alert('You already picked this letter...')
@@ -102,7 +108,6 @@ var Pendu = function () {
     console.log(that.word);
     display_chances();
     enable_input();
-    //enable_counter();
     display_underscores();
   };
 
@@ -113,6 +118,3 @@ var Pendu = function () {
   }
 };
 window.pendu = new Pendu();
-
-
-// https://youtu.be/oTyNVLlFiys?t=10s
