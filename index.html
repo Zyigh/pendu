@@ -3,8 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body {
+            background: pink;
+        }
+        div {
+            display: flex;
+        }
+        div.inline {
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        div.column {
+            width: 80%;
+            margin: 5% auto;
+            flex-direction: column;
+        }
+        div#letters {
+            width: 33%;
+            margin: 50px auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+    </style>
 </head>
 <body>
 
+<div class="column">
+    <div class="inline">
+        <div class="form">
+            <label for="lol">Choose a letter and type ENTER : </label>
+            <input id="lol" placeholder="Choose a letter and type ENTER">
+        </div>
+        <div id="count"></div>
+    </div>
+    <div id="letters"></div>
+</div>
+
+<script type="application/javascript" src="pendu.js"></script>
+<script type="application/javascript">
+    pendu.init();
+</script>
 </body>
 </html>
