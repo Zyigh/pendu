@@ -8,6 +8,7 @@ var Pendu = function () {
   var words = ['peste', 'imitateur', 'empreinte', 'quadrupède', 'panier'];
   var guesses = [];
   this.word;
+  var word_length;
 
   this.getRandomArbitrary = function(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -15,7 +16,7 @@ var Pendu = function () {
 
   var place_the_letter = function (letter) {
     var validated = false;
-    for (var i = 0; i < that.word.length; i++) {
+    for (var i = 0; i < word_length; i++) {
       if (that.word[i] === letter) {
         that.letters[i].innerHTML = letter;
         validated = true;
@@ -65,18 +66,17 @@ var Pendu = function () {
       var is_good = validate_letter(letter)
       if (true === is_good) {
         if (place_the_letter(letter)) {
-          reset_value();
           is_finished();
         } else {
           alert('This letter is not in my word :/');
-          reset_value();
           display_chances();
         }
       } else if ('already dood' === is_good) {
-        alert('You already picked this letter...')
+        alert('You already picked this letter...');
       } else {
         alert('YOU MUST CHOOSE ONE LETTER BRUH !!!');
       }
+      reset_value();
     }
   };
 
@@ -93,7 +93,6 @@ var Pendu = function () {
   };
 
   var display_underscores = function() {
-    var word_length = that.word.length;
     for (var i = 0; i < word_length; i++) {
       var span = document.createElement('span');
       span.classList.add('blank');
@@ -105,6 +104,7 @@ var Pendu = function () {
 
   var initialize_pendu = function () {
     that.word = words[that.getRandomArbitrary(0, words.length)];
+    word_length = that.word.length;
     display_chances();
     enable_input();
     display_underscores();
